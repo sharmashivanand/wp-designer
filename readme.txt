@@ -1,10 +1,10 @@
-=== WP Designer ===
+﻿=== WP Designer ===
 Contributors: varun21, ruchika_wp
-Donate Link: https://www.binaryturf.com?item_name=Donation%20for%20WP%20Designer%20Plugin&cmd=_donations&currency_code=USD&lc=US
+Donate Link: https://www.converticacommerce.com?item_name=Donation%20for%20WP%20Designer%20Plugin&cmd=_donations&currency_code=USD&lc=US
 Tags: designer, customizer, developer, wp customizer, wp customization, wordpress designer, wordpress customizations
 Requires at least: 3.6
-Tested up to: 4.6
-Stable tag: 2.1.0
+Tested up to: 5.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,13 @@ There are three ways to do this.
 If you have made any specific customizations using WordPress in-built Customizer or your child theme, they may not work due to CSS priority or specificity. For instance, if you have set the `background-color` for the site using the WordPress customizer, the plugin's style.css may not be able to override the same CSS rule. 
 
 == Changelog ==
+
+= 2.2.2 =
+* Changed inclusion of functions.php to plugins_loaded.
+* Fixes a lot of bugs and functions not working.
+
+= 2.2.1 =
+* Updated scssphp library.
 
 = 2.1.0 =
 * Updated scssphp library.
