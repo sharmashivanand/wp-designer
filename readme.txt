@@ -3,8 +3,8 @@ Contributors: varun21, ruchika_wp
 Donate Link: https://www.converticacommerce.com?item_name=Donation%20for%20WP%20Designer%20Plugin&cmd=_donations&currency_code=USD&lc=US
 Tags: designer, customizer, developer, wp customizer, wp customization, wordpress designer, wordpress customizations
 Requires at least: 3.6
-Tested up to: 5.1
-Stable tag: 2.2.2
+Tested up to: 5.2.4
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,9 @@ If you have made any specific customizations using WordPress in-built Customizer
 
 == Changelog ==
 
+= 2.2.3 =
+* Implemented versioning to last modified time to force cachebusting during development.
+
 = 2.2.2 =
 * Changed inclusion of functions.php to plugins_loaded.
 * Fixes a lot of bugs and functions not working.
@@ -103,8 +106,30 @@ If you have made any specific customizations using WordPress in-built Customizer
 
 == Upgrade Notice ==
 
+= 2.2.3 =
+* Implemented versioning to last modified time to force cachebusting during development.
+
+= 2.2.2 =
+* Changed inclusion of functions.php to plugins_loaded.
+* Fixes a lot of bugs and functions not working.
+
+= 2.2.1 =
+* Updated scssphp library.
+
+= 2.1.0 =
+* Updated scssphp library.
+* Filters allow manipulation of scss during compile time.
+* Minified version enqueued for site performance enhancement.
+
+= 2.0.2 =
+* WP Designer is fully compatible with WordPress 4.5.
+
+= 2.0.1 =
+* WP Designer is fully compatible with WordPress 4.4.
+
 = 2.0 =
-This version adds support for SASS so that you can save time on your customizations.
+* *New Feature:* Added support for SCSS.
+* Eliminated obsolete code. 
 
 = 1.0 =
-Initial release of the plugin.
+* This is the initial release of the plugin.
