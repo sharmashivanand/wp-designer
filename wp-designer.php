@@ -346,7 +346,7 @@ class WPDInit {
 
 			$scss = new Compiler();
 
-			// $wpd_format = apply_filters( 'wpd_scss_formatter', 'ScssPhp\\ScssPhp\\Formatter\\Expanded' );
+			// $wpd_format = apply_filters( 'wpd_scss_formatter', 'ScssPhp\\ScssPhp\\Formatter\\Expanded' ); // redundant. now there's only two and we have to make do.
 
 			// ScssPhp\\ScssPhp\\Formatter\\Compact	// Each declaration in a single line, comments are preserved
 			// ScssPhp\\ScssPhp\\Formatter\\Compressed	// Each declaration in a single line, First comment is preserved, other comments are not preserved
