@@ -5,7 +5,7 @@
  *	Plugin Name: WP Designer
  *	Plugin URI: https://www.converticacommerce.com
  *	Description: This plugin helps you to customize any WordPress site regardless of the theme you use.
- *	Version: 2.2.3
+ *	Version: 2.2.4
  *	Author: Shivanand Sharma
  *	Author URI: https://www.converticacommerce.com
  *	License: GPL-2.0+
