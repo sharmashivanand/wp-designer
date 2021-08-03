@@ -3,7 +3,7 @@ Contributors: varun21, ruchika_wp
 Donate Link: https://www.converticacommerce.com?item_name=Donation%20for%20WP%20Designer%20Plugin&cmd=_donations&currency_code=USD&lc=US
 Tags: designer, customizer, developer, wp customizer, wp customization, wordpress designer, wordpress customizations
 Requires at least: 3.6
-Tested up to: 5.2.4
+Tested up to: 5.8
 Stable tag: 2.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
