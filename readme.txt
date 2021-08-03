@@ -76,6 +76,11 @@ If you have made any specific customizations using WordPress in-built Customizer
 
 == Changelog ==
 
+= 2.2.4 =
+* Updated PHP compatibility requirements.
+* Updated scssphp library.
+* Generate and enqueue a compressed css for normal visitors for performance speed-up.
+
 = 2.2.3 =
 * Implemented versioning to last modified time to force cachebusting during development.
 
@@ -105,6 +110,11 @@ If you have made any specific customizations using WordPress in-built Customizer
 * This is the initial release of the plugin.
 
 == Upgrade Notice ==
+
+= 2.2.4 =
+* Updated PHP compatibility requirements.
+* Updated scssphp library.
+* Generate and enqueue a compressed css for normal visitors for performance speed-up.
 
 = 2.2.3 =
 * Implemented versioning to last modified time to force cachebusting during development.
