@@ -1,0 +1,29 @@
+# Composer dependencies - exclude all vendor libraries
+/lib/autoload.php
+/lib/composer/
+/lib/bin/
+/lib/scssphp/
+/lib/league/
+/lib/psr/
+/lib/symfony/
+
+# Composer files (keep these in version control)
+!/composer.json
+!/composer.lock
+
+# Temporary/backup directories
+/lib/scssphp.backup/
+
+# WordPress generated files (if any)
+/wp-content/uploads/wp-designer/
+
+# Development files
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo

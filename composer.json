@@ -1,0 +1,31 @@
+{
+    "name": "sharmashivanand/wp-designer",
+    "description": "WordPress plugin to customize any WordPress site regardless of the theme you use",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Shivanand Sharma",
+            "email": "shivanand@converticacommerce.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "scssphp/scssphp": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WPDesigner\\": "src/"
+        }
+    },
+    "config": {
+        "vendor-dir": "lib",
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
+    },
+    "extra": {
+        "installer-paths": {
+            "lib/scssphp/": ["scssphp/scssphp"]
+        }
+    }
+}

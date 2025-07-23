@@ -2,28 +2,28 @@
 
 /*
  *
- *	Plugin Name: WP Designer
- *	Plugin URI: https://www.converticacommerce.com/?p=17251
- *	Description: This plugin helps you to customize any WordPress site regardless of the theme you use.
- *	Version: 2.2.5
- *  Requires PHP: 7.2
- *	Author: Shivanand Sharma
- *	Author URI: https://www.converticacommerce.com
- *	License: GPL-2.0+
- *	License URI: http://www.opensource.org/licenses/gpl-license.php
+ *  Plugin Name: WP Designer
+ *  Plugin URI: https://www.converticacommerce.com/?p=17251
+ *  Description: This plugin helps you to customize any WordPress site regardless of the theme you use.
+ *  Version: 2.2.5
+ *  Requires PHP: 8.1
+ *  Author: Shivanand Sharma
+ *  Author URI: https://www.converticacommerce.com
+ *  License: GPL-2.0+
+ *  License URI: http://www.opensource.org/licenses/gpl-license.php
  *
  */
 
 
 // * Defines plugin's dir constants
 define( 'WPD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'WPD_BASE_DIR', WP_CONTENT_DIR . '/uploads/' . basename( dirname( __FILE__ ) ) );
+define( 'WPD_BASE_DIR', WP_CONTENT_DIR . '/uploads/' . basename( __DIR__ ) );
 define( 'WPD_IMG_DIR', WPD_BASE_DIR . '/images' );
 define( 'WPD_JS_DIR', WPD_BASE_DIR . '/scripts' );
 
 // * Defines plugin's url constants
 define( 'WPD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'WPD_BASE_URL', WP_CONTENT_URL . '/uploads/' . basename( dirname( __FILE__ ) ) );
+define( 'WPD_BASE_URL', WP_CONTENT_URL . '/uploads/' . basename( __DIR__ ) );
 define( 'WPD_IMG_DIR_URL', WPD_BASE_URL . '/images' );
 define( 'WPD_JS_DIR_URL', WPD_BASE_URL . '/scripts' );
 
@@ -60,7 +60,6 @@ class WPDInit {
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpd_stylesheet' ), 9990 );
 		add_action( 'plugins_loaded', array( $this, 'wpd_functions' ), 20 );
-
 	}
 
 
@@ -114,7 +113,6 @@ class WPDInit {
 				}
 			}
 		}
-
 	}
 
 
@@ -127,7 +125,6 @@ class WPDInit {
 		);
 
 		return array_merge( $links, $link );
-
 	}
 
 
@@ -141,7 +138,6 @@ class WPDInit {
 			'wp-designer',
 			array( $this, 'wpd_settings_page' )
 		);
-
 	}
 
 
@@ -178,16 +174,14 @@ class WPDInit {
 			'wpd-section-debug',
 			array( 'label_for' => WPD_SETTINGS . '[include_styles]' )
 		);
-
 	}
 
 	public function wpd_plugin_styles() {
 
 		$screen = get_current_screen();
-		if ( $screen->id == 'settings_page_' . basename( dirname( __FILE__ ) ) ) {
+		if ( $screen->id == 'settings_page_' . basename( __DIR__ ) ) {
 			wp_enqueue_style( 'wpd-stylesheet', WPD_PLUGIN_URL . '/css/wpd-style.css' );
 		}
-
 	}
 
 
@@ -230,7 +224,6 @@ class WPDInit {
 			<?php
 
 		}
-
 	}
 
 
@@ -255,7 +248,6 @@ class WPDInit {
 		}
 
 		return $output;
-
 	}
 
 
@@ -270,7 +262,6 @@ class WPDInit {
 		);
 
 		return $defaults;
-
 	}
 
 
@@ -319,7 +310,6 @@ class WPDInit {
 		}
 
 		return $opval;
-
 	}
 
 
@@ -329,8 +319,21 @@ class WPDInit {
 	 */
 	public function wpd_throttle_sass() {
 
+		// Check PHP version compatibility
+		if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
+			add_action( 'admin_notices', array( $this, 'wpd_php_version_notice' ) );
+			return;
+		}
+
+		// Load Composer autoloader
 		if ( ! class_exists( 'ScssPhp\\ScssPhp\\Compiler' ) ) {
-			require_once WPD_PLUGIN_DIR . '/lib/scss.inc.php';
+			$autoloader = WPD_PLUGIN_DIR . '/lib/autoload.php';
+			if ( file_exists( $autoloader ) ) {
+				require_once $autoloader;
+			} else {
+				add_action( 'admin_notices', array( $this, 'wpd_composer_missing_notice' ) );
+				return;
+			}
 		}
 
 		// llog(get_declared_classes());
@@ -348,12 +351,12 @@ class WPDInit {
 
 			// $wpd_format = apply_filters( 'wpd_scss_formatter', 'ScssPhp\\ScssPhp\\Formatter\\Expanded' ); // redundant. now there's only two and we have to make do.
 
-			// ScssPhp\\ScssPhp\\Formatter\\Compact	// Each declaration in a single line, comments are preserved
-			// ScssPhp\\ScssPhp\\Formatter\\Compressed	// Each declaration in a single line, First comment is preserved, other comments are not preserved
-			// ScssPhp\\ScssPhp\\Formatter\\Crunched	// Minified
-			// ScssPhp\\ScssPhp\\Formatter\\Debug		// To debug scssphp output; outputs debug info about scssphp, not valid css
-			// ScssPhp\\ScssPhp\\Formatter\\Expanded	// Beautified CSS
-			// ScssPhp\\ScssPhp\\Formatter\\Nested		// Nested CSS
+			// ScssPhp\\ScssPhp\\Formatter\\Compact // Each declaration in a single line, comments are preserved
+			// ScssPhp\\ScssPhp\\Formatter\\Compressed  // Each declaration in a single line, First comment is preserved, other comments are not preserved
+			// ScssPhp\\ScssPhp\\Formatter\\Crunched    // Minified
+			// ScssPhp\\ScssPhp\\Formatter\\Debug       // To debug scssphp output; outputs debug info about scssphp, not valid css
+			// ScssPhp\\ScssPhp\\Formatter\\Expanded    // Beautified CSS
+			// ScssPhp\\ScssPhp\\Formatter\\Nested      // Nested CSS
 
 			// , scss_formatter_nested, scss_formatter_compressed, scss_formatter_crunched See: http://leafo.github.io/scssphp/docs/
 
@@ -361,16 +364,16 @@ class WPDInit {
 
 				$css = "/*********************************************************************************\n******************** Make all your changes to style.scss **************************\n**** This file will be overwritten by style.scss and your changes will be lost ****\n**********************************************************************************/\n\n";
 
-				$scss->setOutputStyle( ScssPhp\ScssPhp\OutputStyle::EXPANDED );
+				$scss->setOutputStyle( \ScssPhp\ScssPhp\OutputStyle::EXPANDED );
 
 				$css .= $scss->compileString( apply_filters( 'wpd_scss', file_get_contents( WPD_BASE_DIR . '/style.scss' ) ) )->getCss();
 
 				file_put_contents( WPD_BASE_DIR . '/autogenerated.css', $css );
 
 				// While we are at it, output a minified version for optimal css load performance
-				$scss->setOutputStyle( ScssPhp\ScssPhp\OutputStyle::COMPRESSED );
+				$scss->setOutputStyle( \ScssPhp\ScssPhp\OutputStyle::COMPRESSED );
 				$minified_comment = '/* Make all your changes to style.scss. This file will be overwritten by style.scss and your changes will be lost */';
-				$crunched_css = $minified_comment . $scss->compileString( apply_filters( 'wpd_scss', file_get_contents( WPD_BASE_DIR . '/style.scss' ) ) )->getCss();
+				$crunched_css     = $minified_comment . $scss->compileString( apply_filters( 'wpd_scss', file_get_contents( WPD_BASE_DIR . '/style.scss' ) ) )->getCss();
 				file_put_contents( WPD_BASE_DIR . '/autogenerated.min.css', $crunched_css );
 
 				if ( ! is_writable( WPD_BASE_DIR . '/autogenerated.css' ) ) {
@@ -378,7 +381,6 @@ class WPDInit {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -391,7 +393,30 @@ class WPDInit {
 			<p>File Write Error: The <code>autogenerated.css</code> (or the plugin folder) is not writeable. In order for the SASS compiler to work, please make sure that the plugin folder in uploads directory is writeable so that autogenerated.css can be written to.</p>
 			</div>
 		<?php
+	}
 
+	/**
+	 *  Trigger an error notice if PHP version is too old
+	 */
+	public function wpd_php_version_notice() {
+
+		?>
+			<div class="error">
+			<p><strong>WP Designer:</strong> This plugin requires PHP 8.1 or higher. You are currently running PHP <?php echo PHP_VERSION; ?>. Please upgrade your PHP version to use SCSS compilation features.</p>
+			</div>
+		<?php
+	}
+
+	/**
+	 *  Trigger an error notice if Composer dependencies are missing
+	 */
+	public function wpd_composer_missing_notice() {
+
+		?>
+			<div class="error">
+			<p><strong>WP Designer:</strong> Composer dependencies are missing. Please run <code>composer install</code> in the plugin directory to install required dependencies for SCSS compilation.</p>
+			</div>
+		<?php
 	}
 
 	/**
@@ -422,12 +447,9 @@ class WPDInit {
 			if ( file_exists( $wpd_autocss ) ) {
 				wp_enqueue_style( 'wpd-sass', WPD_BASE_URL . '/autogenerated.css', array(), microtime(), 'all' );
 			}
-		} else {
-			if ( file_exists( WPD_BASE_DIR . '/autogenerated.min.css' ) ) {
+		} elseif ( file_exists( WPD_BASE_DIR . '/autogenerated.min.css' ) ) {
 				wp_enqueue_style( 'wpd-sass', WPD_BASE_URL . '/autogenerated.min.css', array(), filemtime( WPD_BASE_DIR . '/autogenerated.min.css' ), 'all' );
-			}
 		}
-
 	}
 
 
@@ -444,9 +466,7 @@ class WPDInit {
 		if ( ! $wpd_func_disabled && file_exists( $wpd_php_path ) ) {
 			include_once WPD_BASE_DIR . '/functions.php';
 		}
-
 	}
-
 }
 
 $wpdinit = new WPDInit();
