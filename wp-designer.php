@@ -329,8 +329,8 @@ class WPDInit {
 	 */
 	public function wpd_throttle_sass() {
 
-		if ( ! class_exists( 'scssc' ) ) {
-			require_once WPD_PLUGIN_DIR . '/lib/scssphp/scss.inc.php';
+		if ( ! class_exists( 'ScssPhp\\ScssPhp\\Compiler' ) ) {
+			require_once WPD_PLUGIN_DIR . '/lib/scss.inc.php';
 		}
 
 		// llog(get_declared_classes());
